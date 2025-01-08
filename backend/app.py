@@ -25,4 +25,12 @@ def create_app():
     def index():
         return render_template('index.html')
 
+    @app.route('/history')
+    def history():
+        return render_template('history.html')
+
+    @app.route('/search')
+    def search():
+        return render_template('search.html')
+
     return app

@@ -19,19 +19,17 @@
             <img src="{{ url_for('static', filename='images/CCAS_Logo.png') }}" alt="CCAS Logo" class="logo-img">
             <span class="ms-2">CCAS</span>
         </div>
+        <div class="d-flex align-items-center">
+            <a href="{{ url_for('history') }}" class="nav-link">History</a>
+            <a href="{{ url_for('search') }}" class="nav-link">Search</a>
+        </div>
         <div class="profile-section" onclick="toggleLoginModal()">
-            <img src="{{ url_for('static', filename='images/Profile_CCAS.png') }}" alt="Profile"
-                 class="profile-img rounded-circle">
+            <img src="{{ url_for('static', filename='images/UserIconDark.png') }}" alt="Profile" class="profile-img rounded-circle">
         </div>
     </div>
 </nav>
 
 <div class="d-flex">
-    <!-- Side Menu -->
-    <div class="side-menu bg-darker p-3">
-
-    </div>
-
     <!-- Main Content -->
     <div class="main-content flex-grow-1 p-3">
         <div id="map" class="rounded border border-secondary"></div>
@@ -40,16 +38,17 @@
                 <h4>Recent Reports</h4>
             </div>
             <div class="feed-items">
-                <!-- Feed items will be dynamically added here -->
+                <p>This is where the feed items would go</p>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Chat Button -->
+<!-- Chat Button
 <button class="chat-btn btn btn-light rounded-circle">
     <i class="bi bi-chat-dots-fill"></i>
 </button>
+-->
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
