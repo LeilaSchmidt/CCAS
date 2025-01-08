@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+
 class Config:
     SECRET_KEY = 'your-secret-key-here'  # Change this in production
     MONGODB_SETTINGS = {

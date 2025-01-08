@@ -29,6 +29,6 @@ class CrimeReport(db.Document):
     verified = BooleanField(default=False)
     meta = {
         'indexes': [
-            {'fields': ['location'], 'type': '2dsphere'}
+            {'fields': ['location'], 'index_type': '2dsphere'}
         ]
     }

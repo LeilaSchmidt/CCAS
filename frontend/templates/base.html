@@ -12,58 +12,74 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="bg-dark">
-    <!-- Top Navigation -->
-    <nav class="navbar navbar-dark bg-darker">
-        <div class="container-fluid">
-            <div class="navbar-brand d-flex align-items-end">
-                <img src="{{ url_for('static', filename='images/CCAS_Logo.png') }}" alt="CCAS Logo" class="logo-img">
-                <span class="ms-2">CCAS</span>
-            </div>
-            <div class="profile-section">
-                <img src="{{ url_for('static', filename='images/Profile_CCAS.png') }}" alt="Profile" class="profile-img rounded-circle">
-            </div>
+<!-- Top Navigation -->
+<nav class="navbar navbar-dark bg-darker">
+    <div class="container-fluid">
+        <div class="navbar-brand d-flex align-items-end">
+            <img src="{{ url_for('static', filename='images/CCAS_Logo.png') }}" alt="CCAS Logo" class="logo-img">
+            <span class="ms-2">CCAS</span>
         </div>
-    </nav>
-
-    <div class="d-flex">
-        <!-- Side Menu -->
-        <div class="side-menu bg-darker p-3">
-            <div class="d-flex flex-column gap-3">
-                <button class="menu-btn bg-danger position-relative">
-                    <i class="bi bi-people-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-                <button class="menu-btn bg-warning">
-                    <i class="bi bi-clock-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-                <button class="menu-btn bg-primary">
-                    <i class="bi bi-exclamation-circle-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-                <button class="menu-btn bg-success">
-                    <i class="bi bi-info-circle-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content flex-grow-1 p-3">
-            <div id="map" class="rounded border border-secondary"></div>
+        <div class="profile-section" onclick="toggleLoginModal()">
+            <img src="{{ url_for('static', filename='images/Profile_CCAS.png') }}" alt="Profile"
+                 class="profile-img rounded-circle">
         </div>
     </div>
+</nav>
 
-    <!-- Chat Button -->
-    <button class="chat-btn btn btn-light rounded-circle">
-        <i class="bi bi-chat-dots-fill"></i>
-    </button>
+<div class="d-flex">
+    <!-- Side Menu -->
+    <div class="side-menu bg-darker p-3">
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content flex-grow-1 p-3">
+        <div id="map" class="rounded border border-secondary"></div>
+        <div class="feed-container ms-4 flex-grow-1">
+            <div class="feed-header mb-3">
+                <h4>Recent Reports</h4>
+            </div>
+            <div class="feed-items">
+                <!-- Feed items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chat Button -->
+<button class="chat-btn btn btn-light rounded-circle">
+    <i class="bi bi-chat-dots-fill"></i>
+</button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<!-- Login Modal -->
+<div id="loginModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
