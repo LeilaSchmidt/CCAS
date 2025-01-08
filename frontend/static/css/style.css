@@ -10,7 +10,6 @@
     cursor: pointer;
 }
 
-
 /* Map container */
 #map {
     height: calc(100vh - 96px);
@@ -23,25 +22,171 @@
     min-width: 300px;
 }
 
+/* Feed items styling */
 .feed-item {
     background-color: #2c2c2c;
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 16px;
+    color: white;
 }
 
-.feed-item h5 {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.feed-item p {
+.feed-item .feed-date {
     font-size: 14px;
-    margin-bottom: 8px;
+    color: #999;
+    margin-bottom: 10px;
 }
 
-.feed-item small {
+.feed-item .feed-details {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.feed-item .feed-status {
     font-size: 12px;
-    color: #999;
+    color: #888;
+    margin: 5px 0;
+}
+
+.feed-item .feed-more {
+    color: #007bff;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.feed-item .feed-more:hover {
+    text-decoration: underline;
+}
+
+/* Severity marker colors */
+.crime-marker.severity-1 { background-color: #28a745; }
+.crime-marker.severity-2 { background-color: #ffc107; }
+.crime-marker.severity-3 { background-color: #fd7e14; }
+.crime-marker.severity-4 { background-color: #dc3545; }
+.crime-marker.severity-5 { background-color: #6f42c1; }
+
+/* Main layout */
+.main-content {
+    display: flex;
+    height: calc(100vh - 56px);
+}
+
+/* Dark theme */
+.bg-darker {
+    background-color: #1a1a1a;
+}
+
+/* Feed header */
+.feed-header h4 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #map {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .feed-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .main-content {
+        flex-direction: column;
+    }
+}
+
+/* Scrollbar styling for feed container */
+.feed-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed-container::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.feed-container::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.feed-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Modal dark theme overrides */
+.modal-content.bg-dark {
+    border: 1px solid #444;
+}
+
+.modal-content.bg-dark .form-control {
+    background-color: #333;
+    border-color: #444;
+    color: #fff;
+}
+
+.modal-content.bg-dark .form-control:focus {
+    background-color: #444;
+    border-color: #666;
+    color: #fff;
+}
+
+#location-status {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+#searchResults {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#searchResults .list-group-item {
+    border-color: #444;
+    cursor: pointer;
+}
+
+#searchResults .list-group-item:hover {
+    background-color: #333 !important;
+}
+
+.location-selected {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+/* Report detail page styles */
+.report-detail-card {
+    border-color: #444;
+}
+
+#detailMap {
+    border: 1px solid #444;
+    margin-bottom: 20px;
+    height: 300px;
+}
+
+#reportDetail h2 {
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+#reportDetail .text-muted {
+    color: #999 !important;
+}
+
+#reportDetail h4 {
+    color: #fff;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#reportDetail p {
+    color: #ccc;
+    line-height: 1.6;
 }

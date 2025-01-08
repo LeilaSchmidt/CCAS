@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from models import User, CrimeReport
 
@@ -40,7 +40,13 @@ def create_report():
     report = CrimeReport(
         title=data['title'],
         description=data['description'],
-        location={'type': 'Point', 'coordinates': [data['longitude'], data['latitude']]},
+        location={
+            'type': 'Point',
+            'coordinates': [
+                float(data['location']['coordinates'][0]),  # longitude
+                float(data['location']['coordinates'][1])  # latitude
+            ]
+        },
         category=data['category'],
         severity=data['severity'],
         reported_by=user_id
@@ -60,5 +66,34 @@ def get_reports():
         'location': report.location['coordinates'],
         'category': report.category,
         'severity': report.severity,
-        'reported_at': report.reported_at.isoformat()
+        'reported_at': report.reported_at.isoformat(),
+        'verified': report.verified
     } for report in reports]), 200
+
+
+@api.route('/reports/<report_id>', methods=['GET'])
+def get_report(report_id):
+    report = CrimeReport.objects(id=report_id).first()
+    if not report:
+        return jsonify({'error': 'Report not found'}), 404
+
+    return jsonify({
+        'id': str(report.id),
+        'title': report.title,
+        'description': report.description,
+        'location': report.location['coordinates'],
+        'category': report.category,
+        'severity': report.severity,
+        'reported_at': report.reported_at.isoformat(),
+        'verified': report.verified
+    })
+
+
+@api.route('/report/<report_id>')
+def report_detail(report_id):
+    # First check if report exists
+    report = CrimeReport.objects(id=report_id).first()
+    if not report:
+        return render_template('404.html'), 404
+
+    return render_template('report_detail.html', report_id=report_id)

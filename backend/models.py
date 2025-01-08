@@ -28,7 +28,5 @@ class CrimeReport(db.Document):
     reported_at = DateTimeField(default=datetime.utcnow)
     verified = BooleanField(default=False)
     meta = {
-        'indexes': [
-            {'fields': ['location'], 'index_type': '2dsphere'}
-        ]
+        'indexes': [[("location", "2dsphere")]]  # Changed this line
     }
