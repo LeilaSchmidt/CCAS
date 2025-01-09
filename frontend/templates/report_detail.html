@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_detail.css') }}">
+{% endblock %}
+
+{% block main %}
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card bg-dark text-light report-detail-card">
-                <div class="card-body" id="reportDetail" data-report-id="{{ report_id }}">
-                    <!-- Report details will be loaded here -->
-                    <div class="spinner-border text-light" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            </div>
+    <div class="report-container">
+        <div class="report-header">
+            Date and Time
         </div>
-        <div class="col-md-4">
-            <div id="detailMap" class="rounded"></div>
+        <div class="report-content" id="reportDetail" data-report-id="{{ report_id }}">
+            <div class="spinner-border text-dark" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
-<!-- Include the specific JavaScript for this page -->
+{% block scripts %}
 <script src="{{ url_for('static', filename='js/report_detail.js') }}"></script>
 {% endblock %}
