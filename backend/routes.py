@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 from models import User, CrimeReport
+from create_test_data import create_test_reports
 
 api = Blueprint('api', __name__)
 web = Blueprint('web', __name__)
@@ -20,12 +21,12 @@ VALID_CATEGORIES = {
     'Harassment'
 }
 
+
 # Web routes (for pages)
-@web.route('/')
-@web.route('/home')
-@web.route('/index')
+@web.route('/index' or '/home' or '/')
 def index():
     return render_template('index.html')
+
 
 @web.route('/report/<report_id>')
 def report_detail(report_id):
@@ -34,6 +35,53 @@ def report_detail(report_id):
     if not report:
         return render_template('404.html'), 404
     return render_template('report_detail.html', report_id=report_id)
+
+@api.route('/generate-additional-test-data', methods=['POST'])
+def generate_additional_test_data():
+    try:
+        data = request.get_json()
+        lat = float(data['lat'])
+        lon = float(data['lon'])
+        min_radius = float(data['min_radius'])
+        max_radius = float(data['max_radius'])
+
+        # Generate only new reports in the expanded area
+        create_test_reports(
+            center_lat=lat,
+            center_lon=lon,
+            radius_km=max_radius,
+            min_radius_km=min_radius,
+            num_reports=10  # Adjust as needed
+        )
+
+        return jsonify({'message': 'Additional test data generated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+@api.route('/generate-test-data', methods=['POST'])
+def generate_test_data():
+    try:
+        data = request.get_json()
+        lat = float(data['lat'])
+        lon = float(data['lon'])
+        radius = float(data['radius'])
+
+        # Clear existing reports
+        CrimeReport.objects.delete()
+
+        # Generate new reports
+        create_test_reports(
+            center_lat=lat,
+            center_lon=lon,
+            radius_km=radius,
+            min_radius_km=0,
+            num_reports=20
+        )
+
+        return jsonify({'message': 'Test data generated successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
 
 @api.route('/register', methods=['POST'])
 def register():
@@ -48,6 +96,7 @@ def register():
 
     return jsonify({'message': 'User registered successfully'}), 201
 
+
 @api.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -55,9 +104,17 @@ def login():
 
     if user and user.check_password(data['password']):
         access_token = create_access_token(identity=str(user.id))
-        return jsonify({'access_token': access_token}), 200
+        return jsonify({
+            'access_token': access_token,
+            'message': 'Login successful'
+        }), 200
 
-    return jsonify({'error': 'Invalid credentials'}), 401
+    # Enhanced error messages
+    if not user:
+        return jsonify({'error': 'No account found with this email'}), 404
+    else:
+        return jsonify({'error': 'Incorrect password'}), 401
+
 
 @api.route('/reports', methods=['POST'])
 @jwt_required()
@@ -99,6 +156,7 @@ def create_report():
 
     return jsonify({'message': 'Report created successfully'}), 201
 
+
 @api.route('/reports', methods=['GET'])
 def get_reports():
     category = request.args.get('category')
@@ -130,6 +188,7 @@ def get_reports():
         'verified': report.verified,
     } for report in reports]), 200
 
+
 @api.route('/reports/<report_id>', methods=['GET'])
 def get_report(report_id):
     report = CrimeReport.objects(id=report_id).first()
@@ -146,6 +205,7 @@ def get_report(report_id):
         'reported_at': report.reported_at.isoformat(),
         'verified': report.verified
     })
+
 
 @api.route('/categories', methods=['GET'])
 def get_categories():

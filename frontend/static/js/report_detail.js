@@ -10,10 +10,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         // Update content
         document.getElementById('reportDetail').innerHTML = `
+            <div class="report-status ${report.verified ? 'status-verified' : 'status-active'}">
+                ${report.verified ? 'Cleared by police' : 'Active'}
+            </div>
+
             <div class="report-field">
                 <div>- Type of crime: ${report.category}</div>
                 <div>- Severity: ${report.severity}/5</div>
                 <div>- Safety level: ${getSafetyLevel(report.severity)}</div>
+                <div>- Status: ${getStatusWithLabel(report.verified)}</div>
             </div>
 
             <div class="description-section">
@@ -21,9 +26,16 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <div>${report.description}</div>
             </div>
 
-            <div class="confirmation-section">
-                <div>Confirmed by Law Enforcement?</div>
-                <div>${report.verified ? 'Yes' : 'No'}</div>
+            <div class="report-meta">
+                <div class="report-date">
+                    Reported: ${formatDate(report.reported_at)}
+                </div>
+                <div class="verification-section">
+                    <div class="verification-label">Report Status:</div>
+                    <div class="verification-status ${report.verified ? 'verified' : 'active'}">
+                        ${getStatusDetails(report.verified)}
+                    </div>
+                </div>
             </div>
         `;
 
@@ -48,4 +60,25 @@ function getSafetyLevel(severity) {
         5: 'Extreme Danger'
     };
     return levels[severity] || 'Unknown';
+}
+
+function getStatusWithLabel(verified) {
+    return verified ? 'Cleared' : 'Active - Under Investigation';
+}
+
+function getStatusDetails(verified) {
+    if (verified) {
+        return 'This report has been verified and cleared by law enforcement';
+    }
+    return 'This report is active and under investigation';
+}
+
+function formatDate(dateString) {
+    return new Date(dateString).toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
 }

@@ -2,20 +2,24 @@
 
 {% block content %}
 <div class="main-content flex-grow-1 p-3">
-    <!-- Search Location -->
-    <div class="search-container mb-3">
-        <input type="text" id="locationSearch" class="form-control" placeholder="Enter a location (e.g., city or address)">
-        <button class="btn btn-primary mt-2" onclick="searchLocation()">Search Location</button>
+    <!-- Wrapper for Search and Map -->
+    <div class="map-search-wrapper">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="locationSearch" class="form-control"
+                   placeholder="Enter a location (e.g., city or address)">
+            <button class="btn btn-primary ms-2" onclick="searchLocation()">Search Location</button>
+        </div>
+        <!-- Map -->
+        <div id="map" class="rounded border border-secondary">
+            <!-- Radius Slider -->
+            <div id="radiusSliderContainer" class="radius-slider-container">
+                <label for="radiusSlider" class="slider-label">Radius: <span id="radiusValue">15</span> km</label>
+                <input type="range" id="radiusSlider" min="5" max="100" value="15" step="1">
+            </div>
+        </div>
     </div>
 
-    <!-- Radius Slider -->
-    <div class="radius-slider-container">
-        <label for="radiusSlider" class="slider-label">Radius: <span id="radiusValue">50</span> km</label>
-        <input type="range" id="radiusSlider" min="1" max="100" value="50" />
-    </div>
-
-    <!-- Map -->
-    <div id="map" class="rounded border border-secondary"></div>
 
     <!-- Feed -->
     <div class="feed-container ms-4 flex-grow-1">

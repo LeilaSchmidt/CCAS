@@ -1,3 +1,8 @@
+:root {
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+}
+
 .report-container {
     max-width: 800px;
     margin: 50px auto;
@@ -41,4 +46,20 @@
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid #eee;
+}
+
+.status-verified {
+    background-color: var(--success-color);
+}
+
+.status-active {
+    background-color: var(--warning-color);
+}
+
+.verification-status.verified {
+    color: var(--success-color);
+}
+
+.verification-status.active {
+    color: var(--warning-color);
 }

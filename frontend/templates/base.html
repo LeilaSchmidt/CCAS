@@ -31,9 +31,20 @@
         </div>
         <!-- Report Crime Button and Profile -->
         <div class="ms-auto d-flex align-items-center">
-            <button class="btn btn-danger me-2" onclick="toggleReportModal()">Report Crime</button>
-            <img src="{{ url_for('static', filename='images/UserIconDark.png') }}" alt="Profile"
-                 class="profile-img rounded-circle">
+            <button id="report-crime-button" class="btn btn-danger me-3" style="display: none;">Report Crime</button>
+            <div class="dropdown">
+                <img src="{{ url_for('static', filename='images/UserIconDark.png') }}" alt="Profile"
+                     class="profile-img rounded-circle" id="userDropdown" data-bs-toggle="dropdown">
+                <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="userDropdown">
+                    <li id="login-section">
+                        <a class="dropdown-item text-light" href="#" onclick="showLoginModal()">Login</a>
+                        <a class="dropdown-item text-light" href="#" onclick="showSignupTab()">Sign Up</a>
+                    </li>
+                    <li id="logout-section" style="display: none;">
+                        <a class="dropdown-item text-light" href="#" onclick="handleLogout()">Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </nav>
@@ -87,6 +98,67 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Report</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Modal -->
+<div id="loginModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h5 class="modal-title">Login</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs mb-3" id="loginTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab"
+                                data-bs-target="#login-panel" type="button">Login
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup-panel"
+                                type="button">Sign Up
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="loginTabContent">
+                    <!-- Login Panel -->
+                    <div class="tab-pane fade show active" id="login-panel">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                    <!-- Sign Up Panel -->
+                    <!-- Sign Up Panel -->
+                    <div class="tab-pane fade" id="signup-panel">
+                        <form id="signupForm">
+                            <div class="mb-3">
+                                <label for="signupEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="signupEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="signupPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupPasswordConfirm" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="signupPasswordConfirm" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

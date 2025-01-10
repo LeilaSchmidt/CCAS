@@ -53,7 +53,8 @@
 
 /* Button styling */
 .btn-danger {
-    background-color: #FF4500; /* Orange-red for the button */
+    color: #1a1a1a;
+    background-color: #FFD700;/* Orange-red for the button */
     border: none;
     transition: background-color 0.3s;
 }
@@ -79,8 +80,8 @@
 
 /* Map container */
 #map {
-    height: calc(100vh - 96px);
-    width: 65%;
+    width: 100%; /* Full width */
+    height: calc(100vh - 150px); /* Adjust height relative to search bar */
     border-radius: 8px;
     border: 1px solid #444;
 }
@@ -245,29 +246,49 @@
         height: auto;
         overflow: auto;
     }
+    .search-row {
+        flex-direction: column; /* Stack input and button vertically */
+        width: 90%;
+    }
+    .search-row input {
+        margin-right: 0;
+        margin-bottom: 10px; /* Add spacing below input */
+    }
 }
 
+/* Wrapper styles to align the search bar and map */
+.map-search-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack search bar above the map */
+    align-items: center; /* Center align the contents */
+    width: 100%; /* Ensure it spans the full width */
+    margin-bottom: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+/* Search Container styling */
 .search-container {
     display: flex;
-    flex-direction: column;
-    max-width: 400px;
-    margin-bottom: 10px;
+    width: 100%; /* Full width */
+    max-width: 800px; /* Limit max width */
+    justify-content: center; /* Center input and button */
+    margin-bottom: 10px; /* Add space between search bar and map */
+    gap: 10px; /* Add spacing between input and button */
 }
 
-#locationSearch {
-    width: 100%;
+.search-container input {
+    flex: 1; /* Let input expand to take available space */
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
 .search-container button {
-    align-self: flex-end;
-    margin-top: 5px;
-    background-color: #FF4500; /* Match the Report Crime button */
+    padding: 10px 20px;
+    background-color: #FFD700;
     border: none;
-    color: white;
-    padding: 8px 16px;
+    color: black;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -277,15 +298,52 @@
     background-color: #FF6347;
 }
 
+.search-row {
+    display: flex;
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px;
+}
+
+.search-row input {
+    flex: 1;
+    margin-right: 10px; /* Add spacing between input and button */
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.search-row button {
+    white-space: nowrap;
+    padding: 8px 16px;
+    background-color: #FF4500; /* Match Report Crime button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-row button:hover {
+    background-color: #FF6347; /* Hover color */
+}
+
+#locationSearch {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 .radius-slider-container {
     position: absolute;
     top: 10px;
     right: 10px;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.9);
+    z-index: 1000; /* Ensure it's above the map */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 150px; /* Adjust width as needed */
 }
 
 .slider-label {
@@ -326,4 +384,62 @@
     background: #FF4500; /* Match the Report Crime button */
     border-radius: 50%; /* Circular thumb */
     cursor: pointer;
+}
+
+/* Add to your style.css */
+.nav-tabs .nav-link {
+    color: #fff;
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #4285f4;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #4285f4;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #4285f4;
+}
+
+#loginModal .modal-content {
+    background-color: #1e1e1e;
+}
+
+#loginModal .form-control {
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+#loginModal .form-control:focus {
+    background-color: #2d2d2d;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 0.2rem rgba(66, 133, 244, 0.25);
+}
+
+.dropdown-menu {
+    border: 1px solid #444;
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #2d2d2d;
+    color: #FFD700 !important;
+}
+
+#logout-section .dropdown-item {
+    color: #FF6347 !important;
+}
+
+#logout-section .dropdown-item:hover {
+    background-color: #2d2d2d;
+    color: #FFD700 !important;
 }
