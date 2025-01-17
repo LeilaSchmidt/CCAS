@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report_detail.css') }}">
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <div class="report-container">
+        <div class="report-header">
+            Date and Time
+        </div>
+        <div class="report-content" id="reportDetail" data-report-id="{{ report_id }}">
+            <div class="spinner-border text-dark" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/report_detail.js') }}"></script>
+{% endblock %}

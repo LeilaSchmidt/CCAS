@@ -8,62 +8,167 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
 </head>
 <body class="bg-dark">
-    <!-- Top Navigation -->
-    <nav class="navbar navbar-dark bg-darker">
-        <div class="container-fluid">
-            <div class="navbar-brand d-flex align-items-end">
-                <img src="{{ url_for('static', filename='images/CCAS_Logo.png') }}" alt="CCAS Logo" class="logo-img">
-                <span class="ms-2">CCAS</span>
-            </div>
-            <div class="profile-section">
-                <img src="{{ url_for('static', filename='images/Profile_CCAS.png') }}" alt="Profile" class="profile-img rounded-circle">
-            </div>
+<!-- Top Navigation -->
+<nav class="navbar navbar-dark bg-darker">
+    <div class="container-fluid d-flex align-items-center">
+        <!-- Logo and Name -->
+        <a href="{{ url_for('index') }}" class="navbar-brand d-flex align-items-center text-decoration-none">
+            <img src="{{ url_for('static', filename='images/CCAS_Logo.png') }}" alt="CCAS Logo" class="logo-img">
+            <span class="ms-2">CCAS</span>
+        </a>
+        <!-- Navbar Links -->
+        <div class="navbar-links d-flex ms-3">
+            <a href="{{ url_for('statistics') }}" class="nav-link">Statistics</a>
+            <a href="{{ url_for('search') }}" class="nav-link">Search</a>
+            <a href="{{ url_for('resources') }}" class="nav-link">Resources</a>
         </div>
-    </nav>
-
-    <div class="d-flex">
-        <!-- Side Menu -->
-        <div class="side-menu bg-darker p-3">
-            <div class="d-flex flex-column gap-3">
-                <button class="menu-btn bg-danger position-relative">
-                    <i class="bi bi-people-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-                <button class="menu-btn bg-warning">
-                    <i class="bi bi-clock-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-                <button class="menu-btn bg-primary">
-                    <i class="bi bi-exclamation-circle-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
-                <button class="menu-btn bg-success">
-                    <i class="bi bi-info-circle-fill"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">+</span>
-                </button>
+        <!-- Report Crime Button and Profile -->
+        <div class="ms-auto d-flex align-items-center">
+            <button id="report-crime-button" class="btn btn-danger me-3" style="display: none;">Report Crime</button>
+            <div class="dropdown">
+                <img src="{{ url_for('static', filename='images/UserIconDark.png') }}" alt="Profile"
+                     class="profile-img rounded-circle" id="userDropdown" data-bs-toggle="dropdown">
+                <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="userDropdown">
+                    <li id="login-section">
+                        <a class="dropdown-item text-light" href="#" onclick="showLoginModal()">Login</a>
+                        <a class="dropdown-item text-light" href="#" onclick="showSignupTab()">Sign Up</a>
+                    </li>
+                    <li id="logout-section" style="display: none;">
+                        <a class="dropdown-item text-light" href="#" onclick="handleLogout()">Logout</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content flex-grow-1 p-3">
-            <div id="map" class="rounded border border-secondary"></div>
         </div>
     </div>
+</nav>
 
-    <!-- Chat Button -->
-    <button class="chat-btn btn btn-light rounded-circle">
-        <i class="bi bi-chat-dots-fill"></i>
-    </button>
+<!-- Main Content Area -->
+{% block main %}
+<div class="d-flex">
+    {% block content %}{% endblock %}
+</div>
+{% endblock %}
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<!-- Modals -->
+{% block modals %}
+<!-- Report Crime Modal -->
+<div id="reportModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Crime</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm">
+                    <div class="mb-3">
+                        <label for="crimeTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="crimeTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="crimeDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="crimeDescription" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="crimeCategory" class="form-label">Category</label>
+                        <select class="form-control" id="crimeCategory" required>
+                            <option value="Theft">Theft</option>
+                            <option value="Vandalism">Vandalism</option>
+                            <option value="Suspicious Activity">Suspicious Activity</option>
+                            <option value="Disturbance">Disturbance</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="crimeSeverity" class="form-label">Severity (1-5)</label>
+                        <select class="form-control" id="crimeSeverity" required>
+                            <option value="1">1 - Minor</option>
+                            <option value="2">2 - Moderate</option>
+                            <option value="3">3 - Serious</option>
+                            <option value="4">4 - Severe</option>
+                            <option value="5">5 - Critical</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Report</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login Modal -->
+<div id="loginModal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+                <h5 class="modal-title">Login</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs mb-3" id="loginTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab"
+                                data-bs-target="#login-panel" type="button">Login
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup-panel"
+                                type="button">Sign Up
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="loginTabContent">
+                    <!-- Login Panel -->
+                    <div class="tab-pane fade show active" id="login-panel">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </form>
+                    </div>
+                    <!-- Sign Up Panel -->
+                    <!-- Sign Up Panel -->
+                    <div class="tab-pane fade" id="signup-panel">
+                        <form id="signupForm">
+                            <div class="mb-3">
+                                <label for="signupEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="signupEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="signupPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupPasswordConfirm" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="signupPasswordConfirm" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>

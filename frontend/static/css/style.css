@@ -1,54 +1,445 @@
-/* Custom dark background */
-.bg-darker {
-    background-color: #1a1a1a;
-}
-
 /* Logo styling */
 .logo-img {
     height: 30px;
     width: auto;
 }
 
+/* Navbar customization */
+.navbar-brand .text-light {
+    font-size: 1.5rem;
+    color: #FFD700; /* Gold color for CCAS title */
+}
+
+/* Override Bootstrap's default hover for nav-links */
+.navbar .nav-link {
+    color: #FFFFFF; /* White by default */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #FFD700 !important; /* Gold on hover */
+    text-decoration: none; /* Keep hover clean */
+}
+
+/* Active link override */
+.navbar .nav-link.active {
+    color: #FF6347 !important; /* Light red for active link */
+    font-weight: bold;
+}
+
+.nav-link {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #FFFFFF; /* Default white */
+    transition: color 0.3s ease;
+}
+
+.nav-link.text-custom {
+    color: #FFFFFF; /* White color for links */
+    transition: color 0.3s;
+}
+
+.nav-link.text-custom:hover {
+    color: #FFD700; /* Gold on hover */
+}
+
+/* Active Nav Link */
+.nav-link.active {
+    color: #FF6347; /* Light red for active link */
+    font-weight: bold;
+}
+
+/* Button styling */
+.btn-danger {
+    color: #1a1a1a;
+    background-color: #FFD700;/* Orange-red for the button */
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #FF6347; /* Lighter red on hover */
+}
+
+/* Profile image */
 .profile-img {
     height: 35px;
     width: 35px;
-}
-
-/* Side menu */
-.side-menu {
-    width: 80px;
-    height: calc(100vh - 56px);
-}
-
-.menu-btn {
-    width: 50px;
-    height: 50px;
-    border: none;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
     cursor: pointer;
+    border-radius: 50%;
+}
+
+/* Main layout */
+.main-content {
+    display: flex;
+    height: calc(100vh - 56px);
+    overflow: hidden; /* Prevent outer scrolling */
 }
 
 /* Map container */
 #map {
-    height: calc(100vh - 96px);
-    width: 100%;
+    width: 100%; /* Full width */
+    height: calc(100vh - 150px); /* Adjust height relative to search bar */
+    border-radius: 8px;
+    border: 1px solid #444;
 }
 
-/* Chat button */
-.chat-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
+/* Feed container */
+.feed-container {
+    max-width: 400px;
+    min-width: 300px;
+    height: calc(100vh - 96px);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    flex-direction: column;
+    margin-left: 1rem;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+/* Feed header */
+.feed-header {
+    padding: 1rem 0;
+    background-color: #1a1a1a;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.feed-header h4 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+/* Feed items */
+.feed-items {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 8px; /* Space for scrollbar */
+}
+
+.feed-item {
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.feed-item .feed-date {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.feed-item .feed-details {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.feed-item .feed-status {
+    font-size: 12px;
+    color: #888;
+    margin: 5px 0;
+}
+
+.feed-item .feed-more {
+    color: #FFD700; /* Gold for 'read more...' links */
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.feed-item .feed-more:hover {
+    text-decoration: underline;
+}
+
+/* Scrollbar styling */
+.feed-items::-webkit-scrollbar {
+    width: 8px;
+}
+
+.feed-items::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.feed-items::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.feed-items::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Severity marker colors */
+.crime-marker.severity-1 {
+    background-color: #28a745;
+}
+
+.crime-marker.severity-2 {
+    background-color: #ffc107;
+}
+
+.crime-marker.severity-3 {
+    background-color: #fd7e14;
+}
+
+.crime-marker.severity-4 {
+    background-color: #dc3545;
+}
+
+.crime-marker.severity-5 {
+    background-color: #6f42c1;
+}
+
+/* Report detail page styles */
+.report-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 25px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.report-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.report-content {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #map {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .feed-container {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+
+    .feed-items {
+        max-height: 50vh;
+    }
+
+    .main-content {
+        flex-direction: column;
+        height: auto;
+        overflow: auto;
+    }
+    .search-row {
+        flex-direction: column; /* Stack input and button vertically */
+        width: 90%;
+    }
+    .search-row input {
+        margin-right: 0;
+        margin-bottom: 10px; /* Add spacing below input */
+    }
+}
+
+/* Wrapper styles to align the search bar and map */
+.map-search-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack search bar above the map */
+    align-items: center; /* Center align the contents */
+    width: 100%; /* Ensure it spans the full width */
+    margin-bottom: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+/* Search Container styling */
+.search-container {
+    display: flex;
+    width: 100%; /* Full width */
+    max-width: 800px; /* Limit max width */
+    justify-content: center; /* Center input and button */
+    margin-bottom: 10px; /* Add space between search bar and map */
+    gap: 10px; /* Add spacing between input and button */
+}
+
+.search-container input {
+    flex: 1; /* Let input expand to take available space */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    background-color: #FFD700;
+    border: none;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-container button:hover {
+    background-color: #FF6347;
+}
+
+.search-row {
+    display: flex;
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px;
+}
+
+.search-row input {
+    flex: 1;
+    margin-right: 10px; /* Add spacing between input and button */
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.search-row button {
+    white-space: nowrap;
+    padding: 8px 16px;
+    background-color: #FF4500; /* Match Report Crime button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-row button:hover {
+    background-color: #FF6347; /* Hover color */
+}
+
+#locationSearch {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.radius-slider-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000; /* Ensure it's above the map */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 150px; /* Adjust width as needed */
+}
+
+.slider-label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#radiusSlider {
+    width: 100%;
+    cursor: pointer;
+    background: #ddd; /* Light gray background for slider */
+    border-radius: 5px;
+    outline: none; /* Remove default outline */
+    height: 4px; /* Slider height */
+}
+
+#radiusSlider::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+    background: #FF4500; /* Match the Report Crime button */
+    border-radius: 50%; /* Circular thumb */
+    cursor: pointer;
+}
+
+#radiusSlider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: #FF4500; /* Match the Report Crime button */
+    border-radius: 50%; /* Circular thumb */
+    cursor: pointer;
+}
+
+#radiusSlider::-ms-thumb {
+    width: 15px;
+    height: 15px;
+    background: #FF4500; /* Match the Report Crime button */
+    border-radius: 50%; /* Circular thumb */
+    cursor: pointer;
+}
+
+/* Add to your style.css */
+.nav-tabs .nav-link {
+    color: #fff;
+    border: none;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #4285f4;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #4285f4;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: transparent;
+    color: #4285f4;
+}
+
+#loginModal .modal-content {
+    background-color: #1e1e1e;
+}
+
+#loginModal .form-control {
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+#loginModal .form-control:focus {
+    background-color: #2d2d2d;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 0.2rem rgba(66, 133, 244, 0.25);
+}
+
+.dropdown-menu {
+    border: 1px solid #444;
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #2d2d2d;
+    color: #FFD700 !important;
+}
+
+#logout-section .dropdown-item {
+    color: #FF6347 !important;
+}
+
+#logout-section .dropdown-item:hover {
+    background-color: #2d2d2d;
+    color: #FFD700 !important;
 }

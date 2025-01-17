@@ -1,0 +1,65 @@
+:root {
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+}
+
+.report-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 25px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.report-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.report-content {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.report-field {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.description-section {
+    margin-top: 20px;
+}
+
+.description-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.confirmation-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.status-verified {
+    background-color: var(--success-color);
+}
+
+.status-active {
+    background-color: var(--warning-color);
+}
+
+.verification-status.verified {
+    color: var(--success-color);
+}
+
+.verification-status.active {
+    color: var(--warning-color);
+}
